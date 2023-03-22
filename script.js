@@ -42,17 +42,14 @@ function game(playerSelection){
     if (playerScore === 5 && computerScore < 5){
         document.querySelector(".result").innerText = "You win the game!";
         console.log("You win the game!");
-        reset();
     }
     else if (playerScore < 5  && computerScore === 5){
         document.querySelector(".result").innerText = "You lose the game!";
         console.log("You lose the game!");
-        reset();
     }
     else if(computerScore === 5 && playerScore === 5){
         document.querySelector(".result").innerText = "It's a tie!";
         console.log("It's a tie!");
-        reset();
     }
 }
 
@@ -69,6 +66,7 @@ function init(){
         if (document.querySelector(".result").innerText !== ""){
             document.querySelector(".present-result").innerText = "";
             document.querySelector(".result").innerText = "";
+            reset();
         }
         game(e.target.innerText.toLowerCase())
     });
