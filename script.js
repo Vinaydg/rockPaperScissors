@@ -25,8 +25,10 @@ function getComputerChoice(){
 function game(){
     let playerScore = 0;
     let computerScore = 0;
-    for (let i = 0; i < 5; i++){
-        let playerSelection = prompt("Rock, paper, or scissors?").toLowerCase();
+    for (let i = 0; i < 1; i++){
+        let playerSelection = document.querySelector(".options").addEventListener("click", function(e){
+            return e.target.innerText.toLowerCase();
+        });
         let computerSelection = getComputerChoice();
         let result = playRound(playerSelection, computerSelection);
         console.log(result);
