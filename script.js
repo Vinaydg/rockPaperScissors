@@ -1,3 +1,5 @@
+let playerScore = 0;
+let computerScore = 0;
 function playRound(playerSelection, computerSelection){
     if (playerSelection == computerSelection){
         return "It's a tie!";
@@ -22,32 +24,57 @@ function getComputerChoice(){
     return choices[random];
 }
 
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    for (let i = 0; i < 1; i++){
-        let playerSelection = document.querySelector(".options").addEventListener("click", function(e){
-            return e.target.innerText.toLowerCase();
-        });
+function game(playerSelection){
         let computerSelection = getComputerChoice();
         let result = playRound(playerSelection, computerSelection);
+        document.querySelector(".present-result").innerText = result;
         console.log(result);
         if (result.includes("win")){
-            playerScore++;
+            document.querySelector(".player-score").innerText = ++playerScore;
         }
         else if (result.includes("lose")){
-            computerScore++;
+            document.querySelector(".computer-score").innerText = ++computerScore;
         }
-    }
-    if (playerScore > computerScore){
+        else if (result.includes("tie")) {
+            document.querySelector(".computer-score").innerText = ++computerScore;
+            document.querySelector(".player-score").innerText = ++playerScore;
+        }
+    if (playerScore === 5 && computerScore < 5){
+        document.querySelector(".result").innerText = "You win the game!";
         console.log("You win the game!");
+        reset();
     }
-    else if (playerScore < computerScore){
+    else if (playerScore < 5  && computerScore === 5){
+        document.querySelector(".result").innerText = "You lose the game!";
         console.log("You lose the game!");
+        reset();
     }
-    else{
+    else if(computerScore === 5 && playerScore === 5){
+        document.querySelector(".result").innerText = "It's a tie!";
         console.log("It's a tie!");
+        reset();
     }
 }
 
-game();
+function reset(){
+    playerScore = 0;
+    computerScore = 0;
+    document.querySelector(".player-score").innerText = playerScore;
+    document.querySelector(".computer-score").innerText = computerScore;
+    document.querySelector(".present-result").innerText = "";
+}
+
+function init(){
+    document.querySelector(".options").addEventListener("click", function(e){
+        if (document.querySelector(".result").innerText !== ""){
+            document.querySelector(".present-result").innerText = "";
+            document.querySelector(".result").innerText = "";
+        }
+        game(e.target.innerText.toLowerCase())
+    });
+    document.querySelector(".reset").addEventListener("click", function(){
+        reset();
+    });
+}
+
+init();
